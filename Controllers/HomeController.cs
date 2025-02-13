@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -43,7 +44,9 @@ namespace BRD_NF_4_7_2_TRANSMISSAO.Controllers
 
                     if (response.IsSuccessStatusCode)
                     {
-                        ViewBag.Mensagem = response; // "Arquivo enviado com sucesso!";
+                        var responseData = "Arquivo processado corretamente!"; // await response.Content.ReadAsStringAsync();
+                        // Substitui novas linhas por <br />
+                        ViewBag.Mensagem = responseData;
                     }
                     else
                     {
