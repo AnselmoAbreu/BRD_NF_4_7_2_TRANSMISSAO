@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Configuration;
 using System.Net.Http;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -26,7 +26,10 @@ namespace BRD_NF_4_7_2_TRANSMISSAO.Controllers
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44346/api/"); // Troque pela URL base da sua API
+                string baseUrl = ConfigurationManager.AppSettings["BaseUrlApi"];
+                string endPoint = ConfigurationManager.AppSettings["EndPoint"];
+
+                client.BaseAddress = new Uri(baseUrl); // Troque pela URL base da sua API
 
                 using (var content = new MultipartFormDataContent())
                 {
@@ -40,12 +43,11 @@ namespace BRD_NF_4_7_2_TRANSMISSAO.Controllers
                     content.Add(fileContent);
                     content.Add(new StringContent(descricao), "\"tipoArquivo\"");
 
-                    var response = await client.PostAsync("Arquivos/ENVIAR_ARQUIVO", content);
+                    var response = await client.PostAsync(endPoint, content);
 
                     if (response.IsSuccessStatusCode)
                     {
-                        var responseData = "Arquivo processado corretamente!"; // await response.Content.ReadAsStringAsync();
-                        // Substitui novas linhas por <br />
+                        var responseData = "Arquivo processado corretamente!";
                         ViewBag.Mensagem = responseData;
                     }
                     else
