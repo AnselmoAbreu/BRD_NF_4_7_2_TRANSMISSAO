@@ -51,7 +51,8 @@ namespace BRD_NF_4_7_2_TRANSMISSAO.Controllers
                     }
                     else
                     {
-                        ViewBag.Mensagem = "Falha ao enviar o arquivo. " + response.ReasonPhrase;
+                        var responseContent = await response.Content.ReadAsStringAsync();
+                        ViewBag.Mensagem = responseContent;
                     }
                 }
             }
