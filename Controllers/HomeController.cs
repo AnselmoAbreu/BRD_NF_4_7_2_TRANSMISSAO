@@ -47,8 +47,7 @@ namespace BRD_NF_4_7_2_TRANSMISSAO.Controllers
 
                     if (response.IsSuccessStatusCode)
                     {
-                        var responseData = "Arquivo processado corretamente!";
-                        ViewBag.Mensagem = responseData;
+                        ViewBag.Mensagem = "Arquivo processado corretamente!";
                     }
                     else
                     {
