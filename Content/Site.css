@@ -12,6 +12,13 @@
     white-space: normal;
 }
 
+.alert {
+    max-width: 100%; /* Garante que a largura da div não ultrapasse o layout */
+    white-space: pre-wrap; /* Mantém a formatação original e permite quebra de linha */
+    overflow-wrap: break-word; /* Quebra palavras longas corretamente */
+    word-break: break-word; /* Compatibilidade com navegadores antigos */
+    overflow: hidden; /* Esconde qualquer conteúdo que ultrapasse o limite */
+}
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,

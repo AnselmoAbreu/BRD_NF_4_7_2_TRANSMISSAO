@@ -21,30 +21,7 @@
         </div>
     </form>
 
-    @*@if (ViewBag.Mensagem != null)
-        {
-            var mensagem = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(ViewBag.Mensagem);
 
-            <div class="alert alert-info mt-4" role="alert">
-                @if (mensagem.erro != null)
-                {
-                    <p>@Html.Raw(mensagem.erro.ToString())</p>
-                }
-                else if (mensagem.erros != null)
-                {
-                    <ul>
-                        @foreach (var erro in mensagem.erros)
-                        {
-                            <li>@Html.Raw(erro.ToString())</li>
-                        }
-                    </ul>
-                }
-                else
-                {
-                    <p>@Html.Raw(ViewBag.Mensagem)</p>
-                }
-            </div>
-        }*@
     @if (ViewBag.Mensagem != null)
     {
         if (ViewBag.Mensagem == "Arquivo processado corretamente!")
@@ -72,11 +49,11 @@
                 <div class="alert alert-info">
                     @if (mensagem.erro != null)
                     {
-                        <p>@Html.Raw(mensagem.erro)</p>
+                        <p class="text-break">@Html.Raw(mensagem.erro)</p>
                     }
                     else if (mensagem.erros != null)
                     {
-                        <ul>
+                        <ul class="text-break">
                             @foreach (var erro in mensagem.erros)
                             {
                                 <li>@Html.Raw(erro)</li>
@@ -85,7 +62,7 @@
                     }
                     else
                     {
-                        <p>@Html.Raw(mensagem.mensagem)</p>
+                        <p class="text-break">@Html.Raw(mensagem)</p>
                     }
                 </div>
             }
