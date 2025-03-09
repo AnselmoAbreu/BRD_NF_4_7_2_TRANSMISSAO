@@ -29,7 +29,7 @@ namespace BRD_NF_4_7_2_TRANSMISSAO.Controllers
                 var handler = new HttpClientHandler();
                 handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
 
-                using (var client = new HttpClient(handler))
+                using (var client = new HttpClient())
                 {
                     string baseUrl = ConfigurationManager.AppSettings["BaseUrlApi"];
                     string endPoint = ConfigurationManager.AppSettings["EndPoint"];
