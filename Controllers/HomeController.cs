@@ -26,10 +26,10 @@ namespace BRD_NF_4_7_2_TRANSMISSAO.Controllers
                     return View();
                 }
 
-                var handler = new HttpClientHandler();
-                handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+                //var handler = new HttpClientHandler();
+                //handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
 
-                using (var client = new HttpClient())
+                using (var client = new HttpClient()) // HttpClient(handler)
                 {
                     string baseUrl = ConfigurationManager.AppSettings["BaseUrlApi"];
                     string endPoint = ConfigurationManager.AppSettings["EndPoint"];
