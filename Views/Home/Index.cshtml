@@ -8,12 +8,12 @@
     <form asp-action="EnviarArquivo" method="post" enctype="multipart/form-data" class="card p-4 shadow">
         <div class="mb-3">
             <label for="arquivo" class="form-label">Escolha um arquivo:</label>
-            <input type="file" class="form-control" name="arquivo" id="arquivo" />
+            <input type="file" class="form-control" name="arquivo" id="arquivo" required />
         </div>
 
         <div class="mb-3">
             <label for="descricao" class="form-label">Tipo de Arquivo:</label>
-            <input type="text" class="form-control" name="descricao" id="descricao" value="COB400" />
+            <input type="text" class="form-control" name="descricao" id="descricao" value="MTP240" />
         </div>
 
         <div class="d-grid">
