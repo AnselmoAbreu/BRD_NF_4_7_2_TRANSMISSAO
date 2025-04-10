@@ -46,7 +46,7 @@
 
             if (mensagem != null)
             {
-                <div class="alert alert-info">
+                <div id="mensagemBackend" class="alert alert-info">
                     @if (mensagem.erro != null)
                     {
                         <p class="text-break">@Html.Raw(mensagem.erro)</p>
@@ -70,3 +70,14 @@
     }
 
 </div>
+<script>
+    document.querySelector('form').addEventListener('submit', function () {
+        // Limpa a div de mensagens antes de enviar o formulário
+        const mensagemBackend = document.getElementById('mensagemBackend');
+        if (mensagemBackend) {
+            mensagemBackend.innerHTML = '';
+            mensagemBackend.className = ''; // Opcional: remove classes da div
+        }
+    });
+</script>
+
