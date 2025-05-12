@@ -28,10 +28,15 @@ namespace BRD_NF_4_7_2_TRANSMISSAO.Controllers
 
                 //var handler = new HttpClientHandler();
                 //handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
-
+                string baseUrl = "";
                 using (var client = new HttpClient()) // HttpClient(handler)
                 {
-                    string baseUrl = ConfigurationManager.AppSettings["BaseUrlApi"];
+                    #if DEBUG
+                        baseUrl = ConfigurationManager.AppSettings["BaseUrlApi"]; // Dev
+                    #else
+                        baseUrl = ConfigurationManager.AppSettings["BaseUrlApiProd"]; // Prod
+                    #endif
+                    //string baseUrl = ConfigurationManager.AppSettings["BaseUrlApi"];
                     string endPoint = ConfigurationManager.AppSettings["EndPoint"];
 
                     client.BaseAddress = new Uri(baseUrl); // Troque pela URL base da sua API
