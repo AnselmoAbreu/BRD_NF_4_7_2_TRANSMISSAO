@@ -5,15 +5,17 @@
 <div class="container mt-5">
     <h2 class="text-center mb-4">Enviar Arquivo</h2>
 
-    <form asp-action="EnviarArquivo" method="post" enctype="multipart/form-data" class="card p-4 shadow">
+    <form asp-action="EnviarArquivo" method="post" enctype="multipart/form-data" class="card p-4 shadow" onsubmit="return validarNomeArquivo()">
         <div class="mb-3">
             <label for="arquivo" class="form-label">Escolha um arquivo:</label>
             <input type="file" class="form-control" name="arquivo" id="arquivo" required />
+            <div id="avisoAcento" class="text-danger mt-2" style="display: none;">
+                O nome do arquivo contém acentos. Por favor, remova os acentos antes de enviar.
+            </div>
         </div>
 
         <div class="mb-3">
             <label for="descricao" class="form-label">Tipo de Arquivo:</label>
-            @*<input type="text" class="form-control" name="descricao" id="descricao" value="MTP240" />*@
             <select class="form-select" name="descricao" id="descricao">
                 <option value="MTP240" selected>MULTIPAG 240</option>
                 <option value="COB400">COBRANÇA 400</option>
@@ -26,7 +28,7 @@
         </div>
     </form>
 
-
+    <!-- Restante do seu código HTML permanece o mesmo -->
     @if (ViewBag.Mensagem != null)
     {
         if (ViewBag.Mensagem == "Arquivo processado corretamente!")
@@ -73,15 +75,63 @@
             }
         }
     }
-
 </div>
 <script>
-    document.querySelector('form').addEventListener('submit', function () {
+    function temAcentos(texto) {
+        // Expressão regular que verifica por caracteres acentuados
+        return /[áàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ]/.test(texto);
+    }
+
+    function validarNomeArquivo() {
+        const inputArquivo = document.getElementById('arquivo');
+        const avisoAcento = document.getElementById('avisoAcento');
+
+        // Limpa mensagens anteriores
+        avisoAcento.style.display = 'none';
+
+        // Verifica se há arquivo selecionado
+        if (inputArquivo.files.length > 0) {
+            const nomeArquivo = inputArquivo.files[0].name;
+
+            if (temAcentos(nomeArquivo)) {
+                avisoAcento.style.display = 'block';
+                inputArquivo.focus();
+                return false; // Impede o envio do formulário
+            }
+        }
+
         // Limpa a div de mensagens antes de enviar o formulário
         const mensagemBackend = document.getElementById('mensagemBackend');
         if (mensagemBackend) {
             mensagemBackend.innerHTML = '';
             mensagemBackend.className = ''; // Opcional: remove classes da div
+        }
+
+        return true; // Permite o envio do formulário
+    }
+
+    // Adiciona validação também quando o arquivo é selecionado (feedback imediato)
+    document.getElementById('arquivo').addEventListener('change', function () {
+        const avisoAcento = document.getElementById('avisoAcento');
+        avisoAcento.style.display = 'none';
+
+        if (this.files.length > 0) {
+            const nomeArquivo = this.files[0].name;
+
+            if (temAcentos(nomeArquivo)) {
+                avisoAcento.style.display = 'block';
+            }
+        }
+    });
+
+    // Mantendo a função original que estava na view
+    document.querySelector('form').addEventListener('submit', function () {
+        // Esta função agora é redundante pois a validação está sendo feita em validarNomeArquivo()
+        // Mas mantemos para garantir compatibilidade com qualquer outro código que dependa dela
+        const mensagemBackend = document.getElementById('mensagemBackend');
+        if (mensagemBackend) {
+            mensagemBackend.innerHTML = '';
+            mensagemBackend.className = '';
         }
     });
 </script>
